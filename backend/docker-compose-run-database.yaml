@@ -1,0 +1,13 @@
+version: '2'
+services:
+  postgres-database:
+    image: postgres:15
+    container_name: postgres-bookAuction
+    environment:
+      - POSTGRES_PASSWORD=local
+      - POSTGRES_USER=local
+      - POSTGRES_DB=bookAuction
+    volumes:
+      - ./infra/database.sql:/docker-entrypoint-initdb.d/database.sql
+    ports:
+      - "5432:5432"
