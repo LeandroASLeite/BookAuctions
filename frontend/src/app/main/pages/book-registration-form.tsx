@@ -1,8 +1,9 @@
-"use client"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+"use client";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { FormEvent, useState } from "react";
+import { toast } from 'react-toastify';
 
 export default function BookRegistration() {
     const [title, setTitle] = useState('');
@@ -36,11 +37,14 @@ export default function BookRegistration() {
         });
 
         if (response.ok) {
-            alert('Book registered successfully!');
-            // Optionally, redirect to home page or other page
-            // Router.push('/');
+            toast.success('Book registered successfully!');
+            // Limpar o formulário
+            setTitle('');
+            setAuthor('');
+            setGenre('');
+            setImage(null);
         } else {
-            alert('Failed to register book.');
+            toast.error('Failed to register book.');
         }
     };
 
@@ -63,6 +67,7 @@ export default function BookRegistration() {
                                     name="title"
                                     type="text"
                                     required
+                                    value={title}
                                     onChange={(e) => setTitle(e.target.value)}
                                     className="block w-full appearance-none rounded-md border border-input bg-background px-3 py-2 placeholder-muted-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
                                     placeholder="Enter the book title"
@@ -79,6 +84,7 @@ export default function BookRegistration() {
                                     name="author"
                                     type="text"
                                     required
+                                    value={author}
                                     onChange={(e) => setAuthor(e.target.value)}
                                     className="block w-full appearance-none rounded-md border border-input bg-background px-3 py-2 placeholder-muted-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
                                     placeholder="Enter the author's name"
@@ -95,6 +101,7 @@ export default function BookRegistration() {
                                     name="genre"
                                     type="text"
                                     required
+                                    value={genre}
                                     onChange={(e) => setGenre(e.target.value)}
                                     className="block w-full appearance-none rounded-md border border-input bg-background px-3 py-2 placeholder-muted-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
                                     placeholder="Enter the book genre"
@@ -128,5 +135,5 @@ export default function BookRegistration() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

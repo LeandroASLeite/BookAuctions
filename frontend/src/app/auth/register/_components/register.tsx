@@ -1,12 +1,13 @@
 "use client"
-import Link from "next/link"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import Link from "next/link";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { FormEvent, useState } from "react";
 import { useRouter } from 'next/navigation'; // Import useRouter
+import { toast } from 'react-toastify'; // Importar o toast
+
 export default function RegisterForm() {
-    
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -18,20 +19,18 @@ export default function RegisterForm() {
         const response = await fetch('http://localhost:3001/users', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({ email, name, password }),
-          });
-      
-          if (response.ok) {
-            router.push('/');
-            alert('User registered successfully!');
-          } else {
-            
-            alert('Failed to register user.');
-          }
-        };
+        });
 
+        if (response.ok) {
+            router.push('/');
+            toast.success('User registered successfully!'); // Exibir toast de sucesso
+        } else {
+            toast.error('Failed to register user.'); // Exibir toast de erro
+        }
+    };
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
@@ -108,5 +107,5 @@ export default function RegisterForm() {
                 </form>
             </div>
         </div>
-    )
+    );
 }

@@ -6,8 +6,9 @@ import { useRouter } from 'next/navigation';
 const Navbar = ({ setActivePage }: any) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
+  const [isModalOpen, setModalOpen] = useState(false); // Estado para controle do modal
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const router = useRouter(); // Use useRouter hook
+  const router = useRouter();
 
   useEffect(() => {
     const userCookie = Cookies.get('user');
@@ -17,9 +18,18 @@ const Navbar = ({ setActivePage }: any) => {
   }, []);
 
   const handleLogout = () => {
+    setModalOpen(true); // Abre o modal ao clicar em logout
+  };
+
+  const confirmLogout = () => {
     Cookies.remove('user');
     Cookies.remove('token');
-    router.push('/'); // Use router.push instead of Router.push
+    router.push('/');
+    setModalOpen(false); // Fecha o modal após a confirmação
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false); // Fecha o modal ao cancelar
   };
 
   useEffect(() => {
@@ -116,10 +126,24 @@ const Navbar = ({ setActivePage }: any) => {
           </>
         ) : (
           <button onClick={() => router.push('/login')} className="hover:underline">
-            Logout
+            Login
           </button>
         )}
       </div>
+
+      {/* Modal de confirmação */}
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+          <div className="bg-white p-6 rounded-md shadow-lg max-w-sm w-full">
+            <h2 className="text-lg font-semibold text-secondary-foreground">Confirm Logout</h2>
+            <p className="mt-2 text-gray-600">Are you sure you want to log out?</p>
+            <div className="mt-4 flex justify-end gap-2">
+              <Button variant="outline" onClick={handleCloseModal} className='text-secondary-foreground'>Cancel</Button>
+              <Button onClick={confirmLogout}>Logout</Button>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 

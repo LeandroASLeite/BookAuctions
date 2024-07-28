@@ -237,7 +237,13 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
-
+import Image from 'next/image'
+interface Offer {
+    id: string;
+    price: number;
+    buyer: string;
+    status: 'pending' | 'accepted' | 'declined';
+  }
 // Função para buscar livros e ofertas do backend
 const fetchBooks = async () => {
     const response = await fetch('http://localhost:3001/books');
@@ -295,7 +301,7 @@ export default function ManageBooks() {
                         book.id === bookId
                             ? {
                                 ...book,
-                                offers: book.offers.map((offer) =>
+                                offers: book.offers.map((offer:Offer) =>
                                     offer.id === offerId ? { ...offer, status } : offer
                                 ),
                             }
@@ -314,7 +320,7 @@ export default function ManageBooks() {
                         book.id === bookIdForDecline
                             ? {
                                 ...book,
-                                offers: book.offers.map((offer) =>
+                                offers: book.offers.map((offer:Offer) =>
                                     offer.id === offerToDecline ? { ...offer, status: "declined" } : offer
                                 ),
                             }
@@ -352,7 +358,13 @@ export default function ManageBooks() {
                         {books.map((book) => (
                             <Card key={book.id}>
                                 <div className="relative h-48">
-                                    <img src={book.imageURL || "/placeholder.svg"} alt={book.title} className="rounded-t-md object-cover" />
+                                    {/* <img src={book.imageURL || "/placeholder.svg"} alt={book.title} className="rounded-t-md object-cover" /> */}
+                                    <Image
+  src={book.imageURL}
+  alt={book.title}
+  layout="fill" // ou "responsive", "intrinsic", "fixed" conforme sua necessidade
+  className="rounded-t-md object-cover"
+/>
                                 </div>
                                 <CardContent className="p-4">
                                     <div className="grid gap-2">

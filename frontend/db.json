@@ -11,28 +11,18 @@
       "email": "sdsa@qwe",
       "name": "prod 2",
       "password": "123"
+    },
+    {
+      "id": "fb04",
+      "email": "reginaldo@123",
+      "name": "reginaldo",
+      "password": "123"
     }
   ],
   "books": [
     {
-      "id": "59c9",
-      "title": "123",
-      "author": "123",
-      "genre": "123",
-      "imageURL": "",
-      "userId": "currentUserId"
-    },
-    {
       "id": "57c1",
-      "title": "testes",
-      "author": "tetes",
-      "genre": "tests",
-      "imageURL": "",
-      "userId": "currentUserId"
-    },
-    {
-      "id": "f6dc",
-      "title": "testes",
+      "title": "rozeta",
       "author": "tetes",
       "genre": "tests",
       "imageURL": "",
@@ -43,6 +33,30 @@
       "title": "underadsa",
       "author": "esouigfhr",
       "genre": "sdfvlsjig",
+      "imageURL": "",
+      "userId": "currentUserId"
+    },
+    {
+      "id": "560e",
+      "title": "123",
+      "author": "123",
+      "genre": "12",
+      "imageURL": "",
+      "userId": "currentUserId"
+    },
+    {
+      "id": "b32b",
+      "title": "123",
+      "author": "123",
+      "genre": "12",
+      "imageURL": "",
+      "userId": "currentUserId"
+    },
+    {
+      "id": "5e39",
+      "title": "123",
+      "author": "32",
+      "genre": "33333",
       "imageURL": "",
       "userId": "currentUserId"
     }
@@ -81,41 +95,48 @@
       "bookId": "54b0",
       "userId": "c68d",
       "price": 22222,
-      "status": "pending"
+      "status": "declined"
     },
     {
       "id": "1722200159004",
       "bookId": "57c1",
       "userId": "c68d",
       "price": 2321,
-      "status": "pending"
+      "status": "declined"
     },
     {
       "id": "1722200279284",
-      "bookId": "59c9",
+      "bookId": null,
       "userId": "c68d",
       "price": 123123,
-      "status": "pending"
+      "status": "accepted"
     },
     {
       "id": "1722200281356",
-      "bookId": "59c9",
+      "bookId": null,
       "userId": "c68d",
       "price": 12312,
-      "status": "pending"
+      "status": "declined"
     },
     {
       "id": "1722200289948",
       "bookId": "57c1",
       "userId": "c68d",
       "price": 13213,
-      "status": "pending"
+      "status": "accepted"
     },
     {
       "id": "1722200292700",
       "bookId": "57c1",
       "userId": "c68d",
       "price": 1231223123213,
+      "status": "declined"
+    },
+    {
+      "id": "1722200714605",
+      "bookId": null,
+      "userId": "c68d",
+      "price": 123,
       "status": "pending"
     }
   ]

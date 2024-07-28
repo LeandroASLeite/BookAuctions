@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 
 export default function LoginForm() {
     const [email, setEmail] = useState('');
@@ -22,10 +23,10 @@ export default function LoginForm() {
 
         if (user) {
             Cookies.set('user', JSON.stringify(user), { expires: 1 });
-            alert('Login successful!');
+            toast.success('Login successful!');
             router.push('/main'); // Use router.push instead of Router.push
         } else {
-            alert('Invalid email or password.');
+            toast.error('Invalid email or password.');
         }
     };
 
