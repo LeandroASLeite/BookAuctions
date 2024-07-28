@@ -1,0 +1,22 @@
+{
+  "users": [
+
+    {
+      "id": "c68d",
+      "email": "testes@testes",
+      "name": "testes",
+      "password": "123"
+    }
+  ],
+  
+  "books": [
+
+    {
+      "id": "",
+      "title": "",
+      "author": "",
+      "genre":"",
+      "imageURL": ""
+    }
+  ]
+}
