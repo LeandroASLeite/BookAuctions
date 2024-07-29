@@ -29,12 +29,10 @@ export default function Component() {
   useEffect(() => {
     async function fetchData() {
       try {
-        
         const booksResponse = await fetch("http://localhost:3001/books");
         const booksData = await booksResponse.json();
         setBooks(booksData);
 
-        
         const offersResponse = await fetch("http://localhost:3001/bids");
         const offersData = await offersResponse.json();
         setOffers(offersData);
@@ -50,7 +48,14 @@ export default function Component() {
   };
 
   const handleMakeOffer = async () => {
+   
     if (!selectedBook) return;
+    const price = parseFloat(offerPrice);
+    if (isNaN(price)|| price <= 0) {
+  
+      alert("O preço da oferta deve ser maior que zero.");
+      return;
+    }
 
     const newOffer: Offer = {
       id: Date.now().toString(), 
@@ -61,7 +66,6 @@ export default function Component() {
     };
 
     try {
-      // Enviar a nova oferta para o backend
       const response = await fetch("http://localhost:3001/bids", {
         method: "POST",
         headers: {
@@ -71,7 +75,6 @@ export default function Component() {
       });
 
       if (response.ok) {
-        // Atualizar a lista de ofertas
         const updatedOffers = [...offers, newOffer];
         setOffers(updatedOffers);
         setOfferPrice("");
@@ -89,11 +92,15 @@ export default function Component() {
         {selectedBook ? (
           <div className="mx-auto max-w-4xl space-y-8">
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="relative h-80 md:h-full">
-                {/* <img src={selectedBook.imageURL} alt={selectedBook.title} fill className="rounded-md object-cover" /> */}
-                <Image  src={selectedBook.imageURL}  alt={selectedBook.title}  layout="fill" // ou "responsive", "intrinsic", "fixed" conforme sua necessidade  className="rounded-md object-cover"
-/>
-              </div>
+            <div className="relative h-80 md:h-80">
+  <Image
+    src={selectedBook.imageURL || "/no-image.jpg"}
+    alt={selectedBook.title}
+    layout="fill"
+    className="rounded-md object-cover"
+    style={{ objectFit: "cover" }} 
+  />
+</div>
               <div className="grid gap-6">
                 <div>
                   <h2 className="text-3xl font-bold tracking-tight text-secondary-foreground">{selectedBook.title}</h2>
@@ -168,9 +175,12 @@ export default function Component() {
               {books.map((book) => (
                 <Card key={book.id} onClick={() => handleBookDetails(book)}>
                   <div className="relative h-48">
-                    {/* <img src={book.imageURL} alt={book.title} fill className="rounded-t-md object-cover" /> */}
-                    <Image  src={book.imageURL}  alt={book.title}  layout="fill" className="rounded-t-md object-cover"
-/>
+                    <Image
+                      src={book.imageURL || "/no-image.jpg"} // Usa a imagem padrão se a URL estiver vazia
+                      alt={book.title}
+                      layout="fill"
+                      className="rounded-t-md object-cover"
+                    />
                   </div>
                   <CardContent className="p-4">
                     <div className="grid gap-2">

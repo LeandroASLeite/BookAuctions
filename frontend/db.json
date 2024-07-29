@@ -21,122 +21,150 @@
   ],
   "books": [
     {
-      "id": "57c1",
-      "title": "rozeta",
-      "author": "tetes",
-      "genre": "tests",
+      "id": "4830",
+      "title": "eu memo",
+      "author": "J.K. Rowling",
+      "genre": "Juvenile Fiction",
+      "imageURL": "http://books.google.com/books/content?id=qDYQCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "userId": "currentUserId"
+    },
+    {
+      "id": "4197",
+      "title": "Harry Potter A Câmara Secreta",
+      "author": "J.k Rowling",
+      "genre": "Fiction",
+      "imageURL": "http://books.google.com/books/content?id=uLgMEQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "userId": "currentUserId"
+    },
+    {
+      "id": "2591",
+      "title": "Turma da Mônica - Alice No Pais das Maravilhas",
+      "author": "Lewis Carroll",
+      "genre": "Juvenile Fiction",
+      "imageURL": "http://books.google.com/books/content?id=0I1JEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "userId": "currentUserId"
+    },
+    {
+      "id": "2438",
+      "title": "As Crônicas de Nárnia - Coleção de Luxo: O Leão, a Feiticeira e o Guarda-roupa",
+      "author": "C.S. Lewis",
+      "genre": "Juvenile Fiction",
+      "imageURL": "http://books.google.com/books/content?id=iUGhEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "userId": "currentUserId"
+    },
+    {
+      "id": "33d4",
+      "title": "Harry Potter e o Cálice de Fogo",
+      "author": "J.K. Rowling",
+      "genre": "Fiction",
       "imageURL": "",
       "userId": "currentUserId"
     },
     {
-      "id": "54b0",
-      "title": "underadsa",
-      "author": "esouigfhr",
-      "genre": "sdfvlsjig",
+      "id": "dbb5",
+      "title": "titulo qualquer",
+      "author": "qualquer",
+      "genre": "qualweur",
       "imageURL": "",
       "userId": "currentUserId"
     },
     {
-      "id": "560e",
-      "title": "123",
-      "author": "123",
-      "genre": "12",
+      "id": "5535",
+      "title": "It Wasn't Me. It Was Neptune",
+      "author": "Rozeta Bogeljić",
+      "genre": "Fiction",
+      "imageURL": "http://books.google.com/books/content?id=1FJkBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "userId": "currentUserId"
+    },
+    {
+      "id": "d6b0",
+      "title": "Autism Spectrum Disorder",
+      "author": "Christopher McDougle",
+      "genre": "Medical",
+      "imageURL": "http://books.google.com/books/content?id=z1I2CwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "userId": "currentUserId"
+    },
+    {
+      "id": "8ef1",
+      "title": "AUTISM - A HANDBOOK OF DIAGNOSIS & TREATMENT OF ASD",
+      "author": "Sumita Bose",
+      "genre": "asd",
       "imageURL": "",
       "userId": "currentUserId"
     },
     {
-      "id": "b32b",
-      "title": "123",
-      "author": "123",
-      "genre": "12",
-      "imageURL": "",
+      "id": "4691",
+      "title": "Harry Potter e a Pedra Filosofal",
+      "author": "J.K. Rowling",
+      "genre": "Juvenile Fiction",
+      "imageURL": "http://books.google.com/books/content?id=GjgQCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
       "userId": "currentUserId"
     },
     {
-      "id": "5e39",
-      "title": "123",
-      "author": "32",
-      "genre": "33333",
-      "imageURL": "",
+      "id": "ca2e",
+      "title": "Harry Potter e a Pedra Filosofal",
+      "author": "J.K. Rowling",
+      "genre": "Juvenile Fiction",
+      "imageURL": "http://books.google.com/books/content?id=GjgQCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "userId": "currentUserId"
+    },
+    {
+      "id": "290e",
+      "title": "Box Percy Jackson e os Olimpianos",
+      "author": "Rick Riordan",
+      "genre": "Juvenile Fiction",
+      "imageURL": "http://books.google.com/books/content?id=V6A0zgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
       "userId": "currentUserId"
     }
   ],
   "bids": [
     {
-      "id": "bid1",
-      "bookId": null,
+      "id": "1722209571372",
+      "bookId": "4197",
       "userId": "c68d",
-      "price": 15.99,
+      "price": null,
       "status": "pending"
     },
     {
-      "id": "bid2",
-      "bookId": null,
-      "userId": "94e0",
-      "price": 12.99,
-      "status": "accepted"
-    },
-    {
-      "id": "1722198833066",
-      "bookId": null,
+      "id": "1722209597381",
+      "bookId": "4197",
       "userId": "c68d",
-      "price": 123,
+      "price": null,
       "status": "pending"
     },
     {
-      "id": "1722198916163",
-      "bookId": null,
+      "id": "1722209722237",
+      "bookId": "4197",
       "userId": "c68d",
-      "price": 123,
+      "price": null,
       "status": "pending"
     },
     {
-      "id": "1722199788748",
-      "bookId": "54b0",
+      "id": "1722209767781",
+      "bookId": "4197",
       "userId": "c68d",
-      "price": 22222,
-      "status": "declined"
+      "price": 23,
+      "status": "pending"
     },
     {
-      "id": "1722200159004",
-      "bookId": "57c1",
+      "id": "1722210026942",
+      "bookId": "4197",
       "userId": "c68d",
-      "price": 2321,
-      "status": "declined"
+      "price": null,
+      "status": "pending"
     },
     {
-      "id": "1722200279284",
-      "bookId": null,
+      "id": "1722210033581",
+      "bookId": "4197",
       "userId": "c68d",
-      "price": 123123,
-      "status": "accepted"
+      "price": null,
+      "status": "pending"
     },
     {
-      "id": "1722200281356",
-      "bookId": null,
+      "id": "1722210047533",
+      "bookId": "4197",
       "userId": "c68d",
-      "price": 12312,
-      "status": "declined"
-    },
-    {
-      "id": "1722200289948",
-      "bookId": "57c1",
-      "userId": "c68d",
-      "price": 13213,
-      "status": "accepted"
-    },
-    {
-      "id": "1722200292700",
-      "bookId": "57c1",
-      "userId": "c68d",
-      "price": 1231223123213,
-      "status": "declined"
-    },
-    {
-      "id": "1722200714605",
-      "bookId": null,
-      "userId": "c68d",
-      "price": 123,
+      "price": null,
       "status": "pending"
     }
   ]
