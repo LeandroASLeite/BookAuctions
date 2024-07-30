@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 export default function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const router = useRouter(); // Use useRouter hook
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -24,7 +24,7 @@ export default function LoginForm() {
         if (user) {
             Cookies.set('user', JSON.stringify(user), { expires: 1 });
             toast.success('Login successful!');
-            router.push('/main'); // Use router.push instead of Router.push
+            router.push('/main');
         } else {
             toast.error('Invalid email or password.');
         }
@@ -44,7 +44,7 @@ export default function LoginForm() {
                         </Link>
                     </p>
                 </div>
-               
+
                 <form className="space-y-6" onSubmit={handleSubmit}>
 
                     <div>
@@ -81,18 +81,16 @@ export default function LoginForm() {
                                 placeholder="Password"
                             />
                         </div>
-                        <Link href="/auth/forgot" className="font-sm text-primary hover:text-primary/70" prefetch={false}>
-                            Forget your password?
-                        </Link>
+
                     </div>
-           
+
                     <div>
                         <Button type="submit" className="w-full text-white font-bold py-2 px-4 rounded">
                             Sign in
                         </Button>
                     </div>
                 </form>
-               
+
             </div>
         </div>
     );

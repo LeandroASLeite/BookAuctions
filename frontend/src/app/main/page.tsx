@@ -7,7 +7,7 @@ import Home from "./pages/home";
 import ManageBooks from "./pages/manage-books";
 import MyOffers from "./pages/my-offers";
 import ViewRegistredBooks from "./pages/view-registred-books";
-import Layout from "../auth/_components/layout";
+import Layout from "../../components/layout";
 
 function Page() {
   const [activePage, setActivePage] = useState('home');

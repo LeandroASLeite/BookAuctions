@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 const Navbar = ({ setActivePage }: any) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
-  const [isModalOpen, setModalOpen] = useState(false); // Estado para controle do modal
+  const [isModalOpen, setModalOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -18,18 +18,18 @@ const Navbar = ({ setActivePage }: any) => {
   }, []);
 
   const handleLogout = () => {
-    setModalOpen(true); // Abre o modal ao clicar em logout
+    setModalOpen(true); 
   };
 
   const confirmLogout = () => {
     Cookies.remove('user');
     Cookies.remove('token');
     router.push('/');
-    setModalOpen(false); // Fecha o modal após a confirmação
+    setModalOpen(false); 
   };
 
   const handleCloseModal = () => {
-    setModalOpen(false); // Fecha o modal ao cancelar
+    setModalOpen(false); 
   };
 
   useEffect(() => {
@@ -131,7 +131,7 @@ const Navbar = ({ setActivePage }: any) => {
         )}
       </div>
 
-      {/* Modal de confirmação */}
+   
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
           <div className="bg-white p-6 rounded-md shadow-lg max-w-sm w-full">

@@ -3,14 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from 'next/image';
-
-interface Offer {
-  id: string;
-  bookId: string;
-  userId: string;
-  price: number;
-  status: "pending" | "accepted" | "declined";
-}
+import { toast } from "react-toastify";
 
 interface Book {
   id: string;
@@ -18,6 +11,19 @@ interface Book {
   author: string;
   genre: string;
   imageURL: string;
+  createdAt?: string;
+  updatedAt?: string;
+  status?: number;
+  userId: string;
+}
+
+interface Offer {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  price: string;
+  book: Book; 
+  status: number; 
 }
 
 export default function Component() {
@@ -48,21 +54,30 @@ export default function Component() {
   };
 
   const handleMakeOffer = async () => {
-   
     if (!selectedBook) return;
     const price = parseFloat(offerPrice);
-    if (isNaN(price)|| price <= 0) {
-  
+    if (isNaN(price) || price <= 0) {
       alert("O preço da oferta deve ser maior que zero.");
       return;
     }
 
     const newOffer: Offer = {
       id: Date.now().toString(), 
-      bookId: selectedBook.id,
-      userId: "c68d", 
-      price: parseFloat(offerPrice),
-      status: "pending",
+      createdAt: new Date().toISOString(), 
+      updatedAt: new Date().toISOString(), 
+      price: offerPrice,
+      book: {
+        id: selectedBook.id,
+        createdAt: selectedBook.createdAt,
+        updatedAt: selectedBook.updatedAt,
+        title: selectedBook.title,
+        author: selectedBook.author,
+        genre: selectedBook.genre,
+        imageURL: selectedBook.imageURL,
+        status: selectedBook.status,
+        userId: selectedBook.userId,
+      },
+      status: 0, // Status inicial como pendente
     };
 
     try {
@@ -77,7 +92,9 @@ export default function Component() {
       if (response.ok) {
         const updatedOffers = [...offers, newOffer];
         setOffers(updatedOffers);
+        toast.success("Oferta enviada com sucesso!");
         setOfferPrice("");
+        setSelectedBook(null);
       } else {
         console.error("Error posting offer:", response.statusText);
       }
@@ -92,15 +109,15 @@ export default function Component() {
         {selectedBook ? (
           <div className="mx-auto max-w-4xl space-y-8">
             <div className="grid md:grid-cols-2 gap-8">
-            <div className="relative h-80 md:h-80">
-  <Image
-    src={selectedBook.imageURL || "/no-image.jpg"}
-    alt={selectedBook.title}
-    layout="fill"
-    className="rounded-md object-cover"
-    style={{ objectFit: "cover" }} 
-  />
-</div>
+              <div className="relative h-80 md:h-80">
+                <Image
+                  src={selectedBook.imageURL || "/no-image.jpg"}
+                  alt={selectedBook.title}
+                  layout="fill"
+                  className="rounded-md object-cover"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
               <div className="grid gap-6">
                 <div>
                   <h2 className="text-3xl font-bold tracking-tight text-secondary-foreground">{selectedBook.title}</h2>
@@ -114,33 +131,33 @@ export default function Component() {
                   <h3 className="text-lg font-semibold">My Offers</h3>
                   <div className="grid gap-4">
                     {offers
-                      .filter((offer) => offer.bookId === selectedBook.id)
+                      .filter((offer) => {
+                        return offer.book && offer.book.id === selectedBook.id;
+                      })
                       .map((offer) => (
                         <div
                           key={offer.id}
-                          className={`rounded-md p-4 ${
-                            offer.status === "pending"
-                              ? "bg-muted"
-                              : offer.status === "accepted"
+                          className={`rounded-md p-4 ${offer.status === 0
+                            ? "bg-muted"
+                            : offer.status === 1
                               ? "bg-green-100"
                               : "bg-red-100"
-                          }`}
+                            }`}
                         >
                           <div className="flex items-center justify-between">
                             <div>
-                              <p className="font-medium">Usuário {offer.userId}</p>
+                              <p className="font-medium">Usuário {offer.id}</p>
                               <p className="text-muted-foreground">Offered ${offer.price}</p>
                             </div>
                             <div
-                              className={`px-2 py-1 rounded-md text-xs font-medium ${
-                                offer.status === "pending"
-                                  ? "bg-muted-foreground text-muted"
-                                  : offer.status === "accepted"
+                              className={`px-2 py-1 rounded-md text-xs font-medium ${offer.status === 0
+                                ? "bg-muted-foreground text-muted"
+                                : offer.status === 1
                                   ? "bg-green-500 text-green-900"
                                   : "bg-red-500 text-red-900"
-                              }`}
+                                }`}
                             >
-                              {offer.status}
+                              {offer.status === 0 ? "pending" : offer.status === 1 ? "accepted" : "declined"}
                             </div>
                           </div>
                         </div>
@@ -176,7 +193,7 @@ export default function Component() {
                 <Card key={book.id} onClick={() => handleBookDetails(book)}>
                   <div className="relative h-48">
                     <Image
-                      src={book.imageURL || "/no-image.jpg"} // Usa a imagem padrão se a URL estiver vazia
+                      src={book.imageURL || "/no-image.jpg"}
                       alt={book.title}
                       layout="fill"
                       className="rounded-t-md object-cover"

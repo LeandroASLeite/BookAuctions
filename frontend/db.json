@@ -1,171 +1,310 @@
 {
   "users": [
     {
-      "id": "c68d",
-      "email": "testes@testes",
-      "name": "testes",
-      "password": "123"
+      "id": "f257",
+      "name": "admin",
+      "email": "admin@admin",
+      "password": "admin",
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOnsibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBhZG1pbiIsInBhc3N3b3JkIjoiYWRtaW5AYWRtaW53ZXFhQUAzIn0sImlhdCI6MTcyMjM3NDY2NDA4OSwiZXhwIjoxNzIyMzc4MjY0MDg5fQ.JO5JU9rYOUxril6fTWq4mnsU29yJ9JL0FIt20Y1XSHQ"
     },
     {
-      "id": "94e0",
-      "email": "sdsa@qwe",
-      "name": "prod 2",
-      "password": "123"
-    },
-    {
-      "id": "fb04",
-      "email": "reginaldo@123",
-      "name": "reginaldo",
-      "password": "123"
+      "id": "cb98",
+      "name": "admin",
+      "email": "leandroleite.ll25@gmail.com",
+      "password": "~0X5U1X;'w}6",
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOnsibmFtZSI6ImFkbWluIiwiZW1haWwiOiJsZWFuZHJvbGVpdGUubGwyNUBnbWFpbC5jb20iLCJwYXNzd29yZCI6In4wWDVVMVg7J3d9NiJ9LCJpYXQiOjE3MjIzODEwODExNzgsImV4cCI6MTcyMjM4NDY4MTE3OH0.QnjjSyNhRsiIERLf473P37jalaoVFN9n51fcrUYt5oE"
     }
   ],
   "books": [
     {
-      "id": "4830",
-      "title": "eu memo",
-      "author": "J.K. Rowling",
-      "genre": "Juvenile Fiction",
-      "imageURL": "http://books.google.com/books/content?id=qDYQCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-      "userId": "currentUserId"
-    },
-    {
-      "id": "4197",
-      "title": "Harry Potter A Câmara Secreta",
-      "author": "J.k Rowling",
+      "id": "573c",
+      "title": "Alice no País das Maravilhas",
+      "author": "Lewis Carrol",
       "genre": "Fiction",
-      "imageURL": "http://books.google.com/books/content?id=uLgMEQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "imageURL": "http://books.google.com/books/content?id=mssBsa0Vf1UC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
       "userId": "currentUserId"
     },
     {
-      "id": "2591",
-      "title": "Turma da Mônica - Alice No Pais das Maravilhas",
-      "author": "Lewis Carroll",
-      "genre": "Juvenile Fiction",
-      "imageURL": "http://books.google.com/books/content?id=0I1JEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-      "userId": "currentUserId"
-    },
-    {
-      "id": "2438",
-      "title": "As Crônicas de Nárnia - Coleção de Luxo: O Leão, a Feiticeira e o Guarda-roupa",
+      "id": "60a8",
+      "title": "As Crônicas de Nárnia - Coleção de Luxo: Príncipe Caspian",
       "author": "C.S. Lewis",
       "genre": "Juvenile Fiction",
-      "imageURL": "http://books.google.com/books/content?id=iUGhEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "imageURL": "http://books.google.com/books/content?id=xyunEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
       "userId": "currentUserId"
     },
     {
-      "id": "33d4",
-      "title": "Harry Potter e o Cálice de Fogo",
-      "author": "J.K. Rowling",
+      "id": "2684",
+      "title": "Tiana und Coel",
+      "author": "Natascha Vuleta",
       "genre": "Fiction",
-      "imageURL": "",
+      "imageURL": "http://books.google.com/books/content?id=KRDzDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
       "userId": "currentUserId"
     },
     {
-      "id": "dbb5",
-      "title": "titulo qualquer",
-      "author": "qualquer",
-      "genre": "qualweur",
-      "imageURL": "",
+      "id": "3fd2",
+      "title": "tests",
+      "author": "test",
+      "genre": "teste",
+      "imageURL": "blob:http://localhost:3000/25b4d51a-8c67-4038-9026-bd6187758c9e",
       "userId": "currentUserId"
     },
     {
-      "id": "5535",
-      "title": "It Wasn't Me. It Was Neptune",
-      "author": "Rozeta Bogeljić",
-      "genre": "Fiction",
-      "imageURL": "http://books.google.com/books/content?id=1FJkBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "id": "6c7f",
+      "title": "23e21",
+      "author": "e32qdw",
+      "genre": "wxsq",
+      "imageURL": "blob:http://localhost:3000/032c2bbe-3a24-4d79-a17c-471e03740109",
       "userId": "currentUserId"
     },
     {
-      "id": "d6b0",
-      "title": "Autism Spectrum Disorder",
-      "author": "Christopher McDougle",
-      "genre": "Medical",
-      "imageURL": "http://books.google.com/books/content?id=z1I2CwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-      "userId": "currentUserId"
-    },
-    {
-      "id": "8ef1",
-      "title": "AUTISM - A HANDBOOK OF DIAGNOSIS & TREATMENT OF ASD",
-      "author": "Sumita Bose",
-      "genre": "asd",
-      "imageURL": "",
-      "userId": "currentUserId"
-    },
-    {
-      "id": "4691",
-      "title": "Harry Potter e a Pedra Filosofal",
-      "author": "J.K. Rowling",
-      "genre": "Juvenile Fiction",
-      "imageURL": "http://books.google.com/books/content?id=GjgQCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-      "userId": "currentUserId"
-    },
-    {
-      "id": "ca2e",
-      "title": "Harry Potter e a Pedra Filosofal",
-      "author": "J.K. Rowling",
-      "genre": "Juvenile Fiction",
-      "imageURL": "http://books.google.com/books/content?id=GjgQCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-      "userId": "currentUserId"
-    },
-    {
-      "id": "290e",
-      "title": "Box Percy Jackson e os Olimpianos",
-      "author": "Rick Riordan",
-      "genre": "Juvenile Fiction",
-      "imageURL": "http://books.google.com/books/content?id=V6A0zgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+      "id": "aead",
+      "title": "342w",
+      "author": "x3",
+      "genre": "e3",
+      "imageURL": "blob:http://localhost:3000/e0663ea8-a442-4b48-87f7-c3fc56f36f6d",
       "userId": "currentUserId"
     }
   ],
   "bids": [
     {
-      "id": "1722209571372",
-      "bookId": "4197",
-      "userId": "c68d",
-      "price": null,
-      "status": "pending"
+      "id": "1722379527375",
+      "createdAt": "2024-07-30T22:45:27.375Z",
+      "updatedAt": "2024-07-30T22:45:27.375Z",
+      "price": "1",
+      "book": {
+        "id": "b0f4",
+        "title": "As Crônicas de Nárnia - Coleção de Luxo: A Cadeira de Prata",
+        "author": "C.S. Lewis",
+        "genre": "Juvenile Fiction",
+        "imageURL": "http://books.google.com/books/content?id=WSqzEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "userId": "currentUserId"
+      },
+      "status": 2
     },
     {
-      "id": "1722209597381",
-      "bookId": "4197",
-      "userId": "c68d",
-      "price": null,
-      "status": "pending"
+      "id": "1722379529463",
+      "createdAt": "2024-07-30T22:45:29.463Z",
+      "updatedAt": "2024-07-30T22:45:29.463Z",
+      "price": "3",
+      "book": {
+        "id": "61b2",
+        "title": "As aventuras de Alice no País das Maravilhas",
+        "author": "Lewis Carroll",
+        "genre": "Fiction",
+        "imageURL": "http://books.google.com/books/content?id=7FLfEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "userId": "currentUserId"
+      },
+      "status": 1
     },
     {
-      "id": "1722209722237",
-      "bookId": "4197",
-      "userId": "c68d",
-      "price": null,
-      "status": "pending"
+      "id": "1722379531431",
+      "createdAt": "2024-07-30T22:45:31.431Z",
+      "updatedAt": "2024-07-30T22:45:31.431Z",
+      "price": "1",
+      "book": {
+        "id": "61b2",
+        "title": "As aventuras de Alice no País das Maravilhas",
+        "author": "Lewis Carroll",
+        "genre": "Fiction",
+        "imageURL": "http://books.google.com/books/content?id=7FLfEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "userId": "currentUserId"
+      },
+      "status": 2
     },
     {
-      "id": "1722209767781",
-      "bookId": "4197",
-      "userId": "c68d",
-      "price": 23,
-      "status": "pending"
+      "id": "1722379533959",
+      "createdAt": "2024-07-30T22:45:33.959Z",
+      "updatedAt": "2024-07-30T22:45:33.959Z",
+      "price": "3",
+      "book": {
+        "id": "b0f4",
+        "title": "As Crônicas de Nárnia - Coleção de Luxo: A Cadeira de Prata",
+        "author": "C.S. Lewis",
+        "genre": "Juvenile Fiction",
+        "imageURL": "http://books.google.com/books/content?id=WSqzEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "userId": "currentUserId"
+      },
+      "status": 1
     },
     {
-      "id": "1722210026942",
-      "bookId": "4197",
-      "userId": "c68d",
-      "price": null,
-      "status": "pending"
+      "id": "1722379756760",
+      "createdAt": "2024-07-30T22:49:16.760Z",
+      "updatedAt": "2024-07-30T22:49:16.760Z",
+      "price": "3",
+      "book": {
+        "id": "d568",
+        "title": "Harry Potter e a Câmara Secreta",
+        "author": "J.K. Rowling",
+        "genre": "Juvenile Fiction",
+        "imageURL": "http://books.google.com/books/content?id=hjcQCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "userId": "currentUserId"
+      },
+      "status": 1
     },
     {
-      "id": "1722210033581",
-      "bookId": "4197",
-      "userId": "c68d",
-      "price": null,
-      "status": "pending"
+      "id": "1722379758489",
+      "createdAt": "2024-07-30T22:49:18.489Z",
+      "updatedAt": "2024-07-30T22:49:18.489Z",
+      "price": "3",
+      "book": {
+        "id": "d568",
+        "title": "Harry Potter e a Câmara Secreta",
+        "author": "J.K. Rowling",
+        "genre": "Juvenile Fiction",
+        "imageURL": "http://books.google.com/books/content?id=hjcQCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "userId": "currentUserId"
+      },
+      "status": 2
     },
     {
-      "id": "1722210047533",
-      "bookId": "4197",
-      "userId": "c68d",
-      "price": null,
-      "status": "pending"
+      "id": "1722379760592",
+      "createdAt": "2024-07-30T22:49:20.592Z",
+      "updatedAt": "2024-07-30T22:49:20.592Z",
+      "price": "3",
+      "book": {
+        "id": "d568",
+        "title": "Harry Potter e a Câmara Secreta",
+        "author": "J.K. Rowling",
+        "genre": "Juvenile Fiction",
+        "imageURL": "http://books.google.com/books/content?id=hjcQCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "userId": "currentUserId"
+      },
+      "status": 2
+    },
+    {
+      "id": "1722379886935",
+      "createdAt": "2024-07-30T22:51:26.935Z",
+      "updatedAt": "2024-07-30T22:51:26.935Z",
+      "price": "3",
+      "book": {
+        "id": "4cc4",
+        "title": "meu livero",
+        "author": "eu memo",
+        "genre": "sal",
+        "imageURL": "",
+        "userId": "currentUserId"
+      },
+      "status": 2
+    },
+    {
+      "id": "1722379889183",
+      "createdAt": "2024-07-30T22:51:29.183Z",
+      "updatedAt": "2024-07-30T22:51:29.183Z",
+      "price": "5",
+      "book": {
+        "id": "6e23",
+        "title": "Ася",
+        "author": "Анна Елькова",
+        "genre": "Fiction",
+        "imageURL": "http://books.google.com/books/content?id=R1MWEQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "userId": "currentUserId"
+      },
+      "status": 1
+    },
+    {
+      "id": "1722379890672",
+      "createdAt": "2024-07-30T22:51:30.672Z",
+      "updatedAt": "2024-07-30T22:51:30.672Z",
+      "price": "1",
+      "book": {
+        "id": "6e23",
+        "title": "Ася",
+        "author": "Анна Елькова",
+        "genre": "Fiction",
+        "imageURL": "http://books.google.com/books/content?id=R1MWEQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "userId": "currentUserId"
+      },
+      "status": 2
+    },
+    {
+      "id": "1722379892784",
+      "createdAt": "2024-07-30T22:51:32.784Z",
+      "updatedAt": "2024-07-30T22:51:32.784Z",
+      "price": "4",
+      "book": {
+        "id": "6e23",
+        "title": "Ася",
+        "author": "Анна Елькова",
+        "genre": "Fiction",
+        "imageURL": "http://books.google.com/books/content?id=R1MWEQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "userId": "currentUserId"
+      },
+      "status": 2
+    },
+    {
+      "id": "1722379928304",
+      "createdAt": "2024-07-30T22:52:08.304Z",
+      "updatedAt": "2024-07-30T22:52:08.304Z",
+      "price": "3",
+      "book": {
+        "id": "4cc4",
+        "title": "meu livero",
+        "author": "eu memo",
+        "genre": "sal",
+        "imageURL": "",
+        "userId": "currentUserId"
+      },
+      "status": 1
+    },
+    {
+      "id": "1722379930568",
+      "createdAt": "2024-07-30T22:52:10.568Z",
+      "updatedAt": "2024-07-30T22:52:10.568Z",
+      "price": "3",
+      "book": {
+        "id": "4cc4",
+        "title": "meu livero",
+        "author": "eu memo",
+        "genre": "sal",
+        "imageURL": "",
+        "userId": "currentUserId"
+      },
+      "status": 2
+    },
+    {
+      "id": "1722380323624",
+      "createdAt": "2024-07-30T22:58:43.624Z",
+      "updatedAt": "2024-07-30T22:58:43.624Z",
+      "price": "2",
+      "book": {
+        "id": "4cc4",
+        "title": "meu livero",
+        "author": "eu memo",
+        "genre": "sal",
+        "imageURL": "",
+        "userId": "currentUserId"
+      },
+      "status": 0
+    },
+    {
+      "id": "1722380376176",
+      "createdAt": "2024-07-30T22:59:36.176Z",
+      "updatedAt": "2024-07-30T22:59:36.176Z",
+      "price": "7",
+      "book": {
+        "id": "573c",
+        "title": "Alice no País das Maravilhas",
+        "author": "Lewis Carrol",
+        "genre": "Fiction",
+        "imageURL": "http://books.google.com/books/content?id=mssBsa0Vf1UC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "userId": "currentUserId"
+      },
+      "status": 0
+    },
+    {
+      "id": "1722381264498",
+      "createdAt": "2024-07-30T23:14:24.498Z",
+      "updatedAt": "2024-07-30T23:14:24.498Z",
+      "price": "8790",
+      "book": {
+        "id": "60a8",
+        "title": "As Crônicas de Nárnia - Coleção de Luxo: Príncipe Caspian",
+        "author": "C.S. Lewis",
+        "genre": "Juvenile Fiction",
+        "imageURL": "http://books.google.com/books/content?id=xyunEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "userId": "currentUserId"
+      },
+      "status": 0
     }
   ]
 }

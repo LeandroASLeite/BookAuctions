@@ -1,17 +1,24 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import Image from "next/image"
+import Image from 'next/image';
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 interface Offer {
   id: string;
+  createdAt: string;
+  updatedAt: string;
   price: number;
-  userId: string;
-  status: string;
-  bookId: string | null;
+  book: {
+    id: string;
+    title: string;
+    author: string;
+    genre: string;
+    imageURL: string;
+    userId: string;
+  };
+  status: 0 | 1 | 2; // 0: pending, 1: accepted, 2: declined
 }
 
 interface Book {
@@ -20,112 +27,144 @@ interface Book {
   author: string;
   genre: string;
   imageURL: string;
+  description: string;
   userId: string;
-  description?: string; // Adicionando descrição opcional
-  offers: Offer[]; // Adicionando lista de ofertas
+  offers: Offer[];
 }
 
 export default function MyOffers() {
-  const [books, setBooks] = useState<Book[]>([])
-  const [offers, setOffers] = useState<Offer[]>([])
-  const [selectedBook, setSelectedBook] = useState<Book | null>(null)
-  const [offerPrice, setOfferPrice] = useState<string>("")
-  const userName = "John Doe" // Nome do usuário que está logado
+  const [books, setBooks] = useState<Book[]>([]);
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [offerPrice, setOfferPrice] = useState("");
 
   useEffect(() => {
-    // Função para buscar os livros e ofertas do backend
-    const fetchBooksAndOffers = async () => {
-      const booksResponse = await fetch('http://localhost:3001/books')
-      const booksData: Book[] = await booksResponse.json()
-      const offersResponse = await fetch('http://localhost:3001/bids')
-      const offersData: Offer[] = await offersResponse.json()
+    async function fetchData() {
+      try {
+        const booksResponse = await fetch('http://localhost:3001/books');
+        const bidsResponse = await fetch('http://localhost:3001/bids');
+        const booksData: Book[] = await booksResponse.json();
+        const bidsData: Offer[] = await bidsResponse.json();
 
-      // Associe as ofertas aos livros
-      setBooks(booksData)
-      setOffers(offersData)
+        const booksWithOffers = booksData.map(book => ({
+          ...book,
+          offers: bidsData
+            .filter(bid => bid.book.id === book.id)
+            .map(bid => ({
+              ...bid,
+              book: {
+                id: bid.book.id,
+                title: bid.book.title,
+                author: bid.book.author,
+                genre: bid.book.genre,
+                imageURL: bid.book.imageURL,
+                userId: bid.book.userId,
+              },
+            })),
+        }));
+
+        setBooks(booksWithOffers);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     }
 
-    fetchBooksAndOffers()
-  }, [])
+    fetchData();
+  }, []);
 
   const handleMakeOffer = () => {
-    if (!selectedBook) return
+    if (!selectedBook) return;
 
     const newOffer: Offer = {
-      id: new Date().getTime().toString(), // Gerar um ID único
+      id: Date.now().toString(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
       price: parseFloat(offerPrice),
-      userId: "c68d", // ID do usuário logado (substitua conforme necessário)
-      status: "pending",
-      bookId: selectedBook.id
-    }
-
-    // Atualizar oferta no backend
-    fetch('http://localhost:3001/bids', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+      book: {
+        id: selectedBook.id,
+        title: selectedBook.title,
+        author: selectedBook.author,
+        genre: selectedBook.genre,
+        imageURL: selectedBook.imageURL,
+        userId: selectedBook.userId,
       },
-      body: JSON.stringify(newOffer),
-    })
-      .then(response => response.json())
-      .then(data => {
-        setOffers([...offers, data])
-        setSelectedBook(prev => prev ? { ...prev, offers: [...prev.offers, data] } : null)
-        setOfferPrice("")
-      })
-  }
+      status: 0, 
+    };
+
+    const updatedBook: Book = {
+      ...selectedBook,
+      offers: [...selectedBook.offers, newOffer],
+    };
+
+    const updatedBooks = books.map((book) =>
+      book.id === selectedBook.id ? updatedBook : book
+    );
+
+    setBooks(updatedBooks);
+    setSelectedBook(updatedBook);
+    setOfferPrice("");
+  };
 
   return (
-    <div className="flex flex-col min-h-screen">      
+    <div className="flex flex-col min-h-screen">
       <div className="flex-1 bg-background px-4 py-12 sm:px-6 lg:px-8">
         {selectedBook ? (
           <div className="mx-auto max-w-4xl space-y-8">
             <div className="grid md:grid-cols-2 gap-8">
               <div className="relative h-80 md:h-full">
-                <Image src={selectedBook.imageURL} alt={selectedBook.title} layout="fill" className="rounded-md object-cover" />
+                <Image
+                  src={selectedBook.imageURL || "/no-image.jpg"}
+                  alt={selectedBook.title}
+                  layout="fill"
+                  className="rounded-md object-cover"
+                  style={{ objectFit: "cover" }}
+                />
               </div>
               <div className="grid gap-6">
                 <div>
-                  <h2 className="text-3xl font-bold tracking-tight text-secondary-foreground">{selectedBook.title}</h2>
+                  <h2 className="text-3xl font-bold tracking-tight text-primary-foreground">{selectedBook.title}</h2>
                   <p className="mt-2 text-muted-foreground">by {selectedBook.author}</p>
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">Description</h3>
-                  <p className="text-muted-foreground">{selectedBook.description || "No description available."}</p>
+                  <p className="text-muted-foreground">{selectedBook.description}</p>
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">My Offers</h3>
                   <div className="grid gap-4">
-                    {selectedBook.offers.map((offer) => (
-                      <div
-                        key={offer.id}
-                        className={`rounded-md p-4 ${
-                          offer.status === "pending"
-                            ? "bg-muted"
-                            : offer.status === "accepted"
-                            ? "bg-green-100"
-                            : "bg-red-100"
-                        }`}
-                      >
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="font-medium">{userName}</p>
-                            <p className="text-muted-foreground">Offered ${offer.price}</p>
-                          </div>
-                          <div
-                            className={`px-2 py-1 rounded-md text-xs font-medium ${
-                              offer.status === "pending"
-                                ? "bg-muted-foreground text-muted"
-                                : offer.status === "accepted"
-                                ? "bg-green-500 text-green-900"
-                                : "bg-red-500 text-red-900"
-                            }`}
-                          >
-                            {offer.status}
+                    {selectedBook.offers.length > 0 ? (
+                      selectedBook.offers.map((offer) => (
+                        <div
+                          key={offer.id}
+                          className={`rounded-md p-4 ${
+                            offer.status === 0
+                              ? "bg-muted"
+                              : offer.status === 1
+                              ? "bg-green-100"
+                              : "bg-red-100"
+                          }`}
+                        >
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="font-medium">Offered ${offer.price}</p>
+                              <p className="text-muted-foreground">for "{offer.book.title}"</p>
+                            </div>
+                            <div
+                              className={`px-2 py-1 rounded-md text-xs font-medium ${
+                                offer.status === 0
+                                  ? "bg-muted-foreground text-muted"
+                                  : offer.status === 1
+                                  ? "bg-green-500 text-green-900"
+                                  : "bg-red-500 text-red-900"
+                              }`}
+                            >
+                              {offer.status === 0 ? "pending" : offer.status === 1 ? "accepted" : "declined"}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))
+                    ) : (
+                      <p className="text-muted-foreground">No offers available.</p>
+                    )}
                   </div>
                 </div>
                 <div>
@@ -148,50 +187,43 @@ export default function MyOffers() {
           </div>
         ) : (
           <div className="mx-auto max-w-4xl space-y-8">
-            <div className="bg-white px-4 py-6 text-secondary-foreground">
+            <div className="bg-primary px-4 py-6 text-primary-foreground">
               <h2 className="text-2xl font-bold">My Offers</h2>
               <div className="grid gap-4 mt-6">
-                {offers
-                  .filter((offer) => offer.userId === "c68d") // Filtra ofertas do usuário atual
-                  .map((offer) => {
-                    const book = books.find((book) => book.id === offer.bookId)
-                    return (
+                {books.flatMap((book) => book.offers).length > 0 ? (
+                  books
+                    .flatMap((book) => book.offers)
+                    .map((offer) => (
                       <div
                         key={offer.id}
                         className={`rounded-md p-4 ${
-                          offer.status === "pending"
+                          offer.status === 0
                             ? "bg-muted"
-                            : offer.status === "accepted"
+                            : offer.status === 1
                             ? "bg-green-100"
                             : "bg-red-100"
                         }`}
                       >
                         <div className="flex items-center justify-between">
                           <div>
-                            <p className="font-medium">
-                              Offered ${offer.price} {book ? `for "${book.title}"` : ""}
+                            <p className="text-muted-foreground">
+                              Offered ${offer.price} for "{books.find((book) => book.id === offer.book.id)?.title}"
                             </p>
-                          </div>
-                          <div
-                            className={`px-2 py-1 rounded-md text-xs font-medium ${
-                              offer.status === "pending"
-                                ? "bg-muted-foreground text-muted"
-                                : offer.status === "accepted"
-                                ? "bg-green-500 text-green-900"
-                                : "bg-red-500 text-red-900"
-                            }`}
-                          >
-                            {offer.status}
+                            <p className="text-muted-foreground">
+                              {offer.status === 0 ? "Pending" : offer.status === 1 ? "Accepted" : "Declined"}
+                            </p>
                           </div>
                         </div>
                       </div>
-                    )
-                  })}
+                    ))
+                ) : (
+                  <p className="text-muted-foreground">No offers available.</p>
+                )}
               </div>
             </div>
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }

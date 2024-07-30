@@ -1,4 +1,4 @@
-import Navbar from "./navbar";
+import Navbar from "../app/auth/_components/navbar";
 import React from "react";
 
 interface LayoutProps {
