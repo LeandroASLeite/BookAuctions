@@ -4,6 +4,10 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from 'next/image';
 import { toast } from "react-toastify";
+import { API_BASE_URL } from "../../../../utils/apiconfig";
+import Cookies from 'js-cookie';
+
+
 
 interface Book {
   id: string;
@@ -35,11 +39,30 @@ export default function Component() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const booksResponse = await fetch("http://localhost:3001/books");
+        const booksResponse = await fetch(`${API_BASE_URL}/books`,{
+          method:'GET',
+          headers:{
+            "Content-Type": "application/json",
+            "Authorization": JSON.parse(Cookies.get('user')!).token
+          }
+        },
+        );
         const booksData = await booksResponse.json();
         setBooks(booksData);
 
-        const offersResponse = await fetch("http://localhost:3001/bids");
+        const offersResponse = await fetch(`${API_BASE_URL}/bids?userId=${JSON.parse(Cookies.get('user')!).id}`,
+
+          {
+            method:'GET',
+            headers:{
+              "Content-Type": "application/json",
+              "Authorization": JSON.parse(Cookies.get('user')!).token,
+
+            }
+          },
+
+        );
+      
         const offersData = await offersResponse.json();
         setOffers(offersData);
       } catch (error) {
@@ -81,7 +104,7 @@ export default function Component() {
     };
 
     try {
-      const response = await fetch("http://localhost:3001/bids", {
+      const response = await fetch(`${API_BASE_URL}/bids`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

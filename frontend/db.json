@@ -1,18 +1,23 @@
 {
   "users": [
     {
-      "id": "f257",
-      "name": "admin",
-      "email": "admin@admin",
-      "password": "admin",
-      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOnsibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBhZG1pbiIsInBhc3N3b3JkIjoiYWRtaW5AYWRtaW53ZXFhQUAzIn0sImlhdCI6MTcyMjM3NDY2NDA4OSwiZXhwIjoxNzIyMzc4MjY0MDg5fQ.JO5JU9rYOUxril6fTWq4mnsU29yJ9JL0FIt20Y1XSHQ"
+      "id": "6bc6",
+      "name": "leandro",
+      "email": "leandro@123",
+      "password": "~0X5U1X;'w}6",
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOnsibmFtZSI6ImxlYW5kcm8iLCJlbWFpbCI6ImxlYW5kcm9AMTIzIiwicGFzc3dvcmQiOiJ-MFg1VTFYOyd3fTYifSwiaWF0IjoxNzIyMzkxNjIzNTIwLCJleHAiOjE3MjIzOTUyMjM1MjB9.d0j-xDRQHoGdJFIFIAiF-CIgmAIuDd5P1-kQ8j6Ij5Q"
     },
     {
-      "id": "cb98",
-      "name": "admin",
-      "email": "leandroleite.ll25@gmail.com",
+      "id": "18cc",
+      "name": "cleiton",
+      "email": "cleiton@123",
       "password": "~0X5U1X;'w}6",
-      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOnsibmFtZSI6ImFkbWluIiwiZW1haWwiOiJsZWFuZHJvbGVpdGUubGwyNUBnbWFpbC5jb20iLCJwYXNzd29yZCI6In4wWDVVMVg7J3d9NiJ9LCJpYXQiOjE3MjIzODEwODExNzgsImV4cCI6MTcyMjM4NDY4MTE3OH0.QnjjSyNhRsiIERLf473P37jalaoVFN9n51fcrUYt5oE"
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOnsibmFtZSI6ImNsZWl0b24iLCJlbWFpbCI6ImNsZWl0b25AMTIzIiwicGFzc3dvcmQiOiJ-MFg1VTFYOyd3fTYifSwiaWF0IjoxNzIyMzkxNzU1MDcyLCJleHAiOjE3MjIzOTUzNTUwNzJ9.iKC36eGrwoIsvD0vZR0l_yg4ussNo6yYlJPZCEY8-o0"
+    },
+    {
+      "id": "757a",
+      "email": "cleiton@123",
+      "password": "~0X5U1X;'w}6"
     }
   ],
   "books": [
@@ -25,27 +30,11 @@
       "userId": "currentUserId"
     },
     {
-      "id": "60a8",
-      "title": "As Crônicas de Nárnia - Coleção de Luxo: Príncipe Caspian",
-      "author": "C.S. Lewis",
-      "genre": "Juvenile Fiction",
-      "imageURL": "http://books.google.com/books/content?id=xyunEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-      "userId": "currentUserId"
-    },
-    {
       "id": "2684",
       "title": "Tiana und Coel",
       "author": "Natascha Vuleta",
       "genre": "Fiction",
       "imageURL": "http://books.google.com/books/content?id=KRDzDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-      "userId": "currentUserId"
-    },
-    {
-      "id": "3fd2",
-      "title": "tests",
-      "author": "test",
-      "genre": "teste",
-      "imageURL": "blob:http://localhost:3000/25b4d51a-8c67-4038-9026-bd6187758c9e",
       "userId": "currentUserId"
     },
     {
@@ -63,6 +52,9 @@
       "genre": "e3",
       "imageURL": "blob:http://localhost:3000/e0663ea8-a442-4b48-87f7-c3fc56f36f6d",
       "userId": "currentUserId"
+    },
+    {
+      "id": "2d8f"
     }
   ],
   "bids": [
@@ -304,7 +296,52 @@
         "imageURL": "http://books.google.com/books/content?id=xyunEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
         "userId": "currentUserId"
       },
-      "status": 0
+      "status": 2
+    },
+    {
+      "id": "1722393983394",
+      "createdAt": "2024-07-31T02:46:23.394Z",
+      "updatedAt": "2024-07-31T02:46:23.394Z",
+      "price": "4",
+      "book": {
+        "id": "573c",
+        "createdAt": "2024-07-31T02:46:23.394Z",
+        "updatedAt": "2024-07-31T02:46:23.394Z",
+        "title": "Alice no País das Maravilhas",
+        "author": "Lewis Carrol",
+        "genre": "Fiction",
+        "status": 0
+      }
+    },
+    {
+      "id": "1722393986666",
+      "createdAt": "2024-07-31T02:46:26.666Z",
+      "updatedAt": "2024-07-31T02:46:26.666Z",
+      "price": "4",
+      "book": {
+        "id": "573c",
+        "createdAt": "2024-07-31T02:46:26.666Z",
+        "updatedAt": "2024-07-31T02:46:26.666Z",
+        "title": "Alice no País das Maravilhas",
+        "author": "Lewis Carrol",
+        "genre": "Fiction",
+        "status": 0
+      }
+    },
+    {
+      "id": "1722394421363",
+      "createdAt": "2024-07-31T02:53:41.363Z",
+      "updatedAt": "2024-07-31T02:53:41.363Z",
+      "price": "4",
+      "book": {
+        "id": "573c",
+        "createdAt": "2024-07-31T02:53:41.363Z",
+        "updatedAt": "2024-07-31T02:53:41.363Z",
+        "title": "Alice no País das Maravilhas",
+        "author": "Lewis Carrol",
+        "genre": "Fiction",
+        "status": 0
+      }
     }
   ]
 }

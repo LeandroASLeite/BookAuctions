@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { toast } from 'react-toastify';
 import BookModal from "./_components/modal";
 
+import Cookies from 'js-cookie';
+import { API_BASE_URL } from "../../../../utils/apiconfig";
+
 export default function BookRegistration() {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
@@ -69,14 +72,15 @@ export default function BookRegistration() {
             author,
             genre,
             imageURL,
-            userId: "currentUserId", // Substitua pelo método real de obter o ID do usuário
+            
         };
 
         try {
-            const response = await fetch('http://localhost:3001/books', {
+            const response = await fetch(`${API_BASE_URL}/books`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
+                    "Authorization": JSON.parse(Cookies.get('user')!).token,
                 },
                 body: JSON.stringify(book),
             });

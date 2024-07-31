@@ -1,9 +1,11 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import Image from 'next/image';
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Cookies from 'js-cookie';
 
 interface Offer {
   id: string;
@@ -40,29 +42,17 @@ export default function MyOffers() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const booksResponse = await fetch('http://localhost:3001/books');
-        const bidsResponse = await fetch('http://localhost:3001/bids');
+        const booksResponse = await fetch(`http://localhost:3001/books/bids?userId=${JSON.parse(Cookies.get('user')!).token}`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              "Authorization": JSON.parse(Cookies.get('user')!).token,
+            }
+          }
+        );
         const booksData: Book[] = await booksResponse.json();
-        const bidsData: Offer[] = await bidsResponse.json();
-
-        const booksWithOffers = booksData.map(book => ({
-          ...book,
-          offers: bidsData
-            .filter(bid => bid.book.id === book.id)
-            .map(bid => ({
-              ...bid,
-              book: {
-                id: bid.book.id,
-                title: bid.book.title,
-                author: bid.book.author,
-                genre: bid.book.genre,
-                imageURL: bid.book.imageURL,
-                userId: bid.book.userId,
-              },
-            })),
-        }));
-
-        setBooks(booksWithOffers);
+        setBooks(booksData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -87,7 +77,7 @@ export default function MyOffers() {
         imageURL: selectedBook.imageURL,
         userId: selectedBook.userId,
       },
-      status: 0, 
+      status: 0,
     };
 
     const updatedBook: Book = {
@@ -135,13 +125,12 @@ export default function MyOffers() {
                       selectedBook.offers.map((offer) => (
                         <div
                           key={offer.id}
-                          className={`rounded-md p-4 ${
-                            offer.status === 0
+                          className={`rounded-md p-4 ${offer.status === 0
                               ? "bg-muted"
                               : offer.status === 1
-                              ? "bg-green-100"
-                              : "bg-red-100"
-                          }`}
+                                ? "bg-green-100"
+                                : "bg-red-100"
+                            }`}
                         >
                           <div className="flex items-center justify-between">
                             <div>
@@ -149,13 +138,12 @@ export default function MyOffers() {
                               <p className="text-muted-foreground">for "{offer.book.title}"</p>
                             </div>
                             <div
-                              className={`px-2 py-1 rounded-md text-xs font-medium ${
-                                offer.status === 0
+                              className={`px-2 py-1 rounded-md text-xs font-medium ${offer.status === 0
                                   ? "bg-muted-foreground text-muted"
                                   : offer.status === 1
-                                  ? "bg-green-500 text-green-900"
-                                  : "bg-red-500 text-red-900"
-                              }`}
+                                    ? "bg-green-500 text-green-900"
+                                    : "bg-red-500 text-red-900"
+                                }`}
                             >
                               {offer.status === 0 ? "pending" : offer.status === 1 ? "accepted" : "declined"}
                             </div>
@@ -196,13 +184,12 @@ export default function MyOffers() {
                     .map((offer) => (
                       <div
                         key={offer.id}
-                        className={`rounded-md p-4 ${
-                          offer.status === 0
+                        className={`rounded-md p-4 ${offer.status === 0
                             ? "bg-muted"
                             : offer.status === 1
-                            ? "bg-green-100"
-                            : "bg-red-100"
-                        }`}
+                              ? "bg-green-100"
+                              : "bg-red-100"
+                          }`}
                       >
                         <div className="flex items-center justify-between">
                           <div>

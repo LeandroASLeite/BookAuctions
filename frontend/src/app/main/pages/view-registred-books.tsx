@@ -10,6 +10,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from 'react-toastify';
 import Image from "next/image";
+import { API_BASE_URL } from "../../../../utils/apiconfig";
+import Cookies from 'js-cookie';
+
 
 export default function ViewRegisteredBooks() {
     const [books, setBooks] = useState<any[]>([]);
@@ -20,7 +23,16 @@ export default function ViewRegisteredBooks() {
 
     useEffect(() => {
         const fetchBooks = async () => {
-            const response = await fetch('http://localhost:3001/books');
+            const response = await fetch(`${API_BASE_URL}/books?userId=${JSON.parse(Cookies.get('user')!).id}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": JSON.parse(Cookies.get('user')!).token,
+
+                    }
+                },
+            );
             const data = await response.json();
             setBooks(data);
         };
@@ -39,8 +51,12 @@ export default function ViewRegisteredBooks() {
 
     const confirmDelete = async () => {
         if (bookToDelete) {
-            await fetch(`http://localhost:3001/books/${bookToDelete.id}`, {
+            await fetch(`${API_BASE_URL}/books/${bookToDelete.id}`, {
                 method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": JSON.parse(Cookies.get('user')!).token,
+                }
             });
             setBooks(books.filter((book) => book.id !== bookToDelete.id));
             setIsDeleteModalOpen(false);
@@ -55,10 +71,11 @@ export default function ViewRegisteredBooks() {
     };
 
     const handleSaveBook = async (updatedBook: any) => {
-        await fetch(`http://localhost:3001/books/${updatedBook.id}`, {
-            method: 'PUT',
+        await fetch(`${API_BASE_URL}/books/${updatedBook.id}`, {
+            method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
+                "Authorization": JSON.parse(Cookies.get('user')!).token,
             },
             body: JSON.stringify(updatedBook),
         });
@@ -81,7 +98,7 @@ export default function ViewRegisteredBooks() {
                             <Card key={book.id}>
                                 <div className="relative h-48">
                                     <Image
-                                        src={book.imageURL || "/no-image.jpg"} 
+                                        src={book.imageURL || "/no-image.jpg"}
                                         alt={book.title}
                                         layout="fill"
                                         className="rounded-t-md object-cover"
@@ -160,7 +177,7 @@ export default function ViewRegisteredBooks() {
                 </Dialog>
             )}
 
-         
+
             {isDeleteModalOpen && (
                 <Dialog open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen}>
                     <DialogContent className="sm:max-w-[425px]">

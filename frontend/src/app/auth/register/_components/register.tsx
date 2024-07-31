@@ -7,6 +7,8 @@ import { FormEvent, useState } from "react";
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import generateToken from '../../../../../utils/generatetolken';
+import { API_BASE_URL } from "../../../../../utils/apiconfig";
+
 
 export default function RegisterForm() {
     const [email, setEmail] = useState('');
@@ -88,7 +90,7 @@ export default function RegisterForm() {
         setToken(newToken);
         const userWithToken = { ...user, token: newToken };
 
-        const response = await fetch('http://localhost:3001/users', {
+        const response = await fetch(`${API_BASE_URL}/users`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

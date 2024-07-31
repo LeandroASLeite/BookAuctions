@@ -5,5 +5,5 @@ run-database:
 	docker-compose -f docker-compose-run-database.yaml up
 
 run-api:
-	docker build -t book-auction-api-local -f Dockerfile .
-	docker run -p 8080:8080 -it  book-auction-api-local
+	docker build -t  book-auction-api-local -f Dockerfile . 
+	docker run -p 8080:8080 -it  -d book-auction-api-local 

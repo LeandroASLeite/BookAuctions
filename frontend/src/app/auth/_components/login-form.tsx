@@ -7,29 +7,60 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
+import { API_BASE_URL, DEFAULT_HEADERS } from "../../../../utils/apiconfig";
 
 export default function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter();
 
+    //     e.preventDefault();
+    //     const response = await fetch(`${API_BASE_URL}/users`);
+    //     const users = await response.json();
+
+    //     const user = users.find((user: { email: string; password: string }) => user.email === email && user.password === password);
+
+    //     if (user) {
+    //         Cookies.set('user', JSON.stringify(user), { expires: 1 });
+    //         toast.success('Login successful!');
+    //         router.push('/main');
+    //     } else {
+    //         toast.error('Invalid email or password.');
+    //     }
+    // };
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+    
+        try {
+            const response = await fetch(`${API_BASE_URL}/user`, {
+                method: 'POST',
+                headers:{
+                    "Content-Type": "application/json",
+                    "Authorization": JSON.parse(Cookies.get('user')!).token
+                },
+                body: JSON.stringify({ email, password }),
 
-        const response = await fetch('http://localhost:3001/users');
-        const users = await response.json();
-
-        const user = users.find((user: { email: string; password: string }) => user.email === email && user.password === password);
-
-        if (user) {
-            Cookies.set('user', JSON.stringify(user), { expires: 1 });
-            toast.success('Login successful!');
-            router.push('/main');
-        } else {
-            toast.error('Invalid email or password.');
+                
+            });
+    
+            if (!response.ok) {
+                throw new Error('Login failed');
+            }
+    
+            const { user } = await response.json();
+    
+            if (user) {
+                Cookies.set('user', JSON.stringify(user), { expires: 1 });
+                
+                toast.success('Login successful!');
+                router.push('/main');
+            } else {
+                toast.error('Invalid email or password.');
+            }
+        } catch (error) {
+            toast.error('An error occurred.');
         }
     };
-
     return (
         <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
             <div className="w-full max-w-md space-y-8">

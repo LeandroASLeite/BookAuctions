@@ -7,13 +7,15 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import Image from 'next/image';
+import { API_BASE_URL } from "../../../../utils/apiconfig";
+import Cookies from 'js-cookie';
 
-interface Offer {
+interface Bid {
     id: string;
     createdAt: string;
     updatedAt: string;
     price: string;
-    book: {
+    book?: {
         id: string;
         title: string;
         author: string;
@@ -30,40 +32,50 @@ interface Book {
     author: string;
     genre: string;
     imageURL: string;
-    offers?: Offer[];
+    bids?: Bid[];
+    status: number
 }
 
 const fetchBooks = async (): Promise<Book[]> => {
-    const response = await fetch('http://localhost:3001/books');
+    const response = await fetch(`${API_BASE_URL}/books?userId=${JSON.parse(Cookies.get('user')!).id}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": JSON.parse(Cookies.get('user')!).token,
+
+                    }
+                },
+            );
+    
     return response.json();
 }
 
-const fetchBids = async (): Promise<Offer[]> => {
-    const response = await fetch('http://localhost:3001/bids');
-    return response.json();
-}
-
-const updateOfferStatus = async (offerId: string, status: number) => {
-    await fetch(`http://localhost:3001/bids/${offerId}`, {
-        method: 'PATCH',
+const updateBidStatus = async (bidId: string, status: number) => {
+    await fetch(`${API_BASE_URL}/bids/${status == 1 ? "accept" :"reject"}/${bidId} `, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ status }),
+            "Authorization": JSON.parse(Cookies.get('user')!).token,
+        }
     });
 }
 
 const deleteBook = async (bookId: string) => {
-    await fetch(`http://localhost:3001/books/${bookId}`, {
+    await fetch(`${API_BASE_URL}/books/${bookId}`, {
         method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": JSON.parse(Cookies.get('user')!).token,
+        }        
     });
 }
 
 export default function ManageBooks() {
     const [books, setBooks] = useState<Book[]>([]);
-    const [bids, setBids] = useState<Offer[]>([]);
+    const [bids, setBids] = useState<Bid[]>([]);
     const [isDeclineModalOpen, setIsDeclineModalOpen] = useState(false);
-    const [offerToDecline, setOfferToDecline] = useState<string | null>(null);
+    const [bidToDecline, setBidToDecline] = useState<string | null>(null);
     const [bookIdForDecline, setBookIdForDecline] = useState<string | null>(null);
 
     useEffect(() => {
@@ -71,25 +83,19 @@ export default function ManageBooks() {
     }, []);
 
     const refreshData = async () => {
-        const fetchedBooks = await fetchBooks();
-        const fetchedBids = await fetchBids();
+        const fetchedBooks = await fetchBooks();        
         setBooks(fetchedBooks);
-        setBids(fetchedBids);
     }
 
-    const handleEditOffer = async (bookId: string, offerId: string, status: number) => {
+    const handleEditBid = async (book: Book, bidId: string, status: number) => {
         if (status === 2) { 
-            setBookIdForDecline(bookId);
-            setOfferToDecline(offerId);
+            
+            setBookIdForDecline(book.id);
+            setBidToDecline(bidId);
             setIsDeclineModalOpen(true);
-        } else {
-            
-            if (status === 1) {
-                const relatedBids = bids.filter(bid => bid.book.id === bookId && bid.id !== offerId);
-                await Promise.all(relatedBids.map(bid => updateOfferStatus(bid.id, 2)));
-            }
-            
-            await updateOfferStatus(offerId, status);
+        } else {       
+   
+            await updateBidStatus(bidId, status);
             
            
             refreshData();
@@ -97,13 +103,13 @@ export default function ManageBooks() {
     }
 
     const confirmDecline = () => {
-        if (offerToDecline && bookIdForDecline) {
-            updateOfferStatus(offerToDecline, 2) 
+        if (bidToDecline && bookIdForDecline) {
+            updateBidStatus(bidToDecline, 2) 
                 .then(() => {
                     
                     refreshData();
                     setIsDeclineModalOpen(false);
-                    setOfferToDecline(null);
+                    setBidToDecline(null);
                     setBookIdForDecline(null);
                 });
         }
@@ -111,16 +117,8 @@ export default function ManageBooks() {
 
     const cancelDecline = () => {
         setIsDeclineModalOpen(false);
-        setOfferToDecline(null);
+        setBidToDecline(null);
         setBookIdForDecline(null);
-    }
-
-    const handleDelete = (id: string) => {
-        deleteBook(id)
-            .then(() => {
-          
-                refreshData();
-            });
     }
 
     return (
@@ -152,9 +150,9 @@ export default function ManageBooks() {
                                 <CardFooter className="p-4 border-t">
                                     <div className="grid gap-4">
                                         <div className="grid gap-2">
-                                            <h4 className="text-lg font-semibold">Offers</h4>
+                                            <h4 className="text-lg font-semibold">Bids</h4>
                                             <div className="grid gap-2">
-                                                {(bids.filter(bid => bid.book.id === book.id) || []).map((bid) => (
+                                                {book.bids!.map((bid) => (
                                                     <div key={bid.id} className="flex items-center justify-between">
                                                         <div>
                                                             <p className="text-muted-foreground">${bid.price}</p>
@@ -164,13 +162,13 @@ export default function ManageBooks() {
                                                                 <>
                                                                     <Button
                                                                         variant="outline"
-                                                                        onClick={() => handleEditOffer(book.id, bid.id, 1)}
+                                                                        onClick={() => handleEditBid( book,bid.id, 1)}
                                                                     >
                                                                         Accept
                                                                     </Button>
                                                                     <Button
                                                                         variant="destructive"
-                                                                        onClick={() => handleEditOffer(book.id, bid.id, 2)}
+                                                                        onClick={() => handleEditBid(book, bid.id, 2)}
                                                                     >
                                                                         Decline
                                                                     </Button>
@@ -197,7 +195,7 @@ export default function ManageBooks() {
                     <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
                             <DialogTitle>Confirm Decline</DialogTitle>
-                            <DialogDescription>Are you sure you want to decline this offer?</DialogDescription>
+                            <DialogDescription>Are you sure you want to decline this bid?</DialogDescription>
                         </DialogHeader>
                         <DialogFooter>
                             <Button variant="outline" onClick={cancelDecline}>
