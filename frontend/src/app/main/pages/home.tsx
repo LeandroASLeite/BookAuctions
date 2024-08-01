@@ -228,12 +228,16 @@ export default function Component() {
                 Book Catalogue
               </h2>
               <p className="mt-2 text-muted-foreground">
-                Browse and search through our collection of books.
+                Browse our collection of books and select one to make a bid.
               </p>
             </div>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 ">
               {books.map((book) => (
-                <Card key={book.id} onClick={() => fetchBook(book)}>
+                <Card
+                  key={book.id}
+                  onClick={() => fetchBook(book)}
+                  className="hover:cursor-pointer"
+                >
                   <div className="relative h-48">
                     <Image
                       src={book.imageURL || "/no-image.jpg"}
