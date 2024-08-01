@@ -9,7 +9,7 @@ import { JwtModule } from '@nestjs/jwt';
     UserModule,
     JwtModule.register({
       global: true,
-      secret: 'TESTE',
+      secret: '123csaw23',
       signOptions: { expiresIn: '1h' },
     }),
   ],
