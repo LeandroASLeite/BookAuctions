@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import Cookies from "js-cookie";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { API_BASE_URL } from "../../../../utils/apiconfig";
-import Cookies from "js-cookie";
 
 interface Book {
   id: number;
@@ -47,7 +47,6 @@ export default function Component() {
           },
         });
         const booksData = await booksResponse.json();
-        console.log(booksData);
         setBooks(booksData);
 
         const bidsResponse = await fetch(
@@ -78,7 +77,9 @@ export default function Component() {
 
   const fetchBook = async (book: Book) => {
     const bookResponse = await fetch(
-      `${API_BASE_URL}/books/bids?userId=${JSON.parse(Cookies.get("user")!).id}&bookId=${book.id}`,
+      `${API_BASE_URL}/books/bids?userId=${
+        JSON.parse(Cookies.get("user")!).id
+      }&bookId=${book.id}`,
       {
         method: "GET",
         headers: {
@@ -174,7 +175,9 @@ export default function Component() {
                           >
                             <div className="flex items-center justify-between">
                               <div>
-                                <p className="font-medium">User {JSON.parse(Cookies.get("user")!).name}</p>
+                                <p className="font-medium">
+                                  User {JSON.parse(Cookies.get("user")!).name}
+                                </p>
                                 <p className="text-muted-foreground">
                                   Bided ${bid.price}
                                 </p>

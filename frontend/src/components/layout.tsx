@@ -1,6 +1,5 @@
-import Navbar from "../app/auth/_components/navbar";
 import React from "react";
-
+import Navbar from "../app/auth/_components/navbar";
 interface LayoutProps {
   children: React.ReactNode;
   setActivePage: (page: string) => void;

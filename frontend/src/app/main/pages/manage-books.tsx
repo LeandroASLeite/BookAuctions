@@ -1,20 +1,19 @@
 "use client";
-
-import { useState, useEffect } from "react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
-import Image from "next/image";
-import { API_BASE_URL } from "../../../../utils/apiconfig";
 import Cookies from "js-cookie";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../../../../utils/apiconfig";
 
 interface Bid {
   id: number;
@@ -44,7 +43,9 @@ interface Book {
 
 const fetchBooks = async (): Promise<Book[]> => {
   const response = await fetch(
-    `${API_BASE_URL}/books?userId=${JSON.parse(Cookies.get("user")!).id}&withBids=true`,
+    `${API_BASE_URL}/books?userId=${
+      JSON.parse(Cookies.get("user")!).id
+    }&withBids=true`,
     {
       method: "GET",
       headers: {

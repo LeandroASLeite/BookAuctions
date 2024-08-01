@@ -6,4 +6,4 @@ run-database:
  
 run-api:
 	docker build -t  book-auction-api-local -f Dockerfile . 
-	docker run --network backend_my-networks -p 8080:8080 -it  -d book-auction-api-local 
+	docker run --network backend_my-networks -p 8081:8080 -it  -d book-auction-api-local 
