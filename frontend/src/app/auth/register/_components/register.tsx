@@ -91,13 +91,14 @@ export default function RegisterForm() {
         const userWithToken = { ...user, token: newToken };
 
         const response = await fetch(`${API_BASE_URL}/users`, {
-            method: 'POST',
+            method: 'POST',            
             headers: {
                 'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*"
             },
             body: JSON.stringify(userWithToken),
         });
-
+        console.log(response)
         if (response.ok) {
             router.push('/');
             toast.success('User registered successfully!');

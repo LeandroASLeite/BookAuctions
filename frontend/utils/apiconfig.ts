@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3001'; // URL base da API
+const API_BASE_URL = 'http://localhost:8080'; // URL base da API
 
 const DEFAULT_HEADERS = {
     'Content-Type': 'application/json',

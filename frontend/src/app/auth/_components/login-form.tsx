@@ -14,40 +14,28 @@ export default function LoginForm() {
     const [password, setPassword] = useState('');
     const router = useRouter();
 
-    //     e.preventDefault();
-    //     const response = await fetch(`${API_BASE_URL}/users`);
-    //     const users = await response.json();
-
-    //     const user = users.find((user: { email: string; password: string }) => user.email === email && user.password === password);
-
-    //     if (user) {
-    //         Cookies.set('user', JSON.stringify(user), { expires: 1 });
-    //         toast.success('Login successful!');
-    //         router.push('/main');
-    //     } else {
-    //         toast.error('Invalid email or password.');
-    //     }
-    // };
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     
         try {
-            const response = await fetch(`${API_BASE_URL}/user`, {
+            const response = await fetch(`${API_BASE_URL}/auth/login`, {
                 method: 'POST',
                 headers:{
                     "Content-Type": "application/json",
-                    "Authorization": JSON.parse(Cookies.get('user')!).token
+                    "Access-Control-Allow-Origin": "*",
+               
                 },
                 body: JSON.stringify({ email, password }),
 
                 
             });
-    
+            
             if (!response.ok) {
                 throw new Error('Login failed');
             }
-    
-            const { user } = await response.json();
+         
+            const user = await response.json();
+            
     
             if (user) {
                 Cookies.set('user', JSON.stringify(user), { expires: 1 });
@@ -56,9 +44,11 @@ export default function LoginForm() {
                 router.push('/main');
             } else {
                 toast.error('Invalid email or password.');
+                
             }
         } catch (error) {
             toast.error('An error occurred.');
+        
         }
     };
     return (

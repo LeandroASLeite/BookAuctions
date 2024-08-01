@@ -7,7 +7,22 @@ services:
       - POSTGRES_PASSWORD=local
       - POSTGRES_USER=local
       - POSTGRES_DB=bookAuction
-    volumes:
-      - ./infra/database.sql:/docker-entrypoint-initdb.d/database.sql
     ports:
       - "5432:5432"
+    networks:
+      - my-networks
+  
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    networks:
+      - my-networks
+
+networks:
+  my-networks:
+    driver: bridge
+

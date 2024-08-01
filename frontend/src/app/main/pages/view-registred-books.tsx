@@ -29,6 +29,7 @@ export default function ViewRegisteredBooks() {
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": JSON.parse(Cookies.get('user')!).token,
+                        "Access-Control-Allow-Origin": "*",
 
                     }
                 },
@@ -56,6 +57,7 @@ export default function ViewRegisteredBooks() {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": JSON.parse(Cookies.get('user')!).token,
+                    "Access-Control-Allow-Origin": "*",
                 }
             });
             setBooks(books.filter((book) => book.id !== bookToDelete.id));

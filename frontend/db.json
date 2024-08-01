@@ -18,6 +18,13 @@
       "id": "757a",
       "email": "cleiton@123",
       "password": "~0X5U1X;'w}6"
+    },
+    {
+      "id": "52f7",
+      "name": "wef",
+      "email": "leandroleite.ll25@gmail.com",
+      "password": "~0X5U1X;'w}6",
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOnsibmFtZSI6IndlZiIsImVtYWlsIjoibGVhbmRyb2xlaXRlLmxsMjVAZ21haWwuY29tIiwicGFzc3dvcmQiOiJ-MFg1VTFYOyd3fTYifSwiaWF0IjoxNzIyNDU4NDg2MDAyLCJleHAiOjE3MjI0NjIwODYwMDJ9.1eln76Htss7k19gNX-LoRd-OrArUYLqkDVU1ZVI-D5w"
     }
   ],
   "books": [

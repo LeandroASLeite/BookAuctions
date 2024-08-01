@@ -2,15 +2,13 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import Image from 'next/image';
+import Image from "next/image";
 import { toast } from "react-toastify";
 import { API_BASE_URL } from "../../../../utils/apiconfig";
-import Cookies from 'js-cookie';
-
-
+import Cookies from "js-cookie";
 
 interface Book {
-  id: string;
+  id: number;
   title: string;
   author: string;
   genre: string;
@@ -18,53 +16,55 @@ interface Book {
   createdAt?: string;
   updatedAt?: string;
   status?: number;
-  userId: string;
+  userId: number;
+  bids?: Bid[];
 }
 
-interface Offer {
-  id: string;
+interface Bid {
+  id: number;
+  bookId: number;
   createdAt: string;
   updatedAt: string;
   price: string;
-  book: Book; 
-  status: number; 
+  book: Book;
+  status: number;
 }
 
 export default function Component() {
   const [books, setBooks] = useState<Book[]>([]);
-  const [offers, setOffers] = useState<Offer[]>([]);
+  const [bids, setBids] = useState<Bid[]>([]);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
-  const [offerPrice, setOfferPrice] = useState<string>("");
+  const [bidPrice, setBidPrice] = useState<string>("");
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const booksResponse = await fetch(`${API_BASE_URL}/books`,{
-          method:'GET',
-          headers:{
+        const booksResponse = await fetch(`${API_BASE_URL}/books`, {
+          method: "GET",
+          headers: {
             "Content-Type": "application/json",
-            "Authorization": JSON.parse(Cookies.get('user')!).token
-          }
-        },
-        );
+            Authorization: JSON.parse(Cookies.get("user")!).token,
+          },
+        });
         const booksData = await booksResponse.json();
+        console.log(booksData);
         setBooks(booksData);
 
-        const offersResponse = await fetch(`${API_BASE_URL}/bids?userId=${JSON.parse(Cookies.get('user')!).id}`,
+        const bidsResponse = await fetch(
+          `${API_BASE_URL}/bids?userId=${JSON.parse(Cookies.get("user")!).id}`,
 
           {
-            method:'GET',
-            headers:{
+            method: "GET",
+            headers: {
               "Content-Type": "application/json",
-              "Authorization": JSON.parse(Cookies.get('user')!).token,
-
-            }
-          },
-
+              Authorization: JSON.parse(Cookies.get("user")!).token,
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
         );
-      
-        const offersData = await offersResponse.json();
-        setOffers(offersData);
+
+        const bidsData = await bidsResponse.json();
+        setBids(bidsData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -76,31 +76,32 @@ export default function Component() {
     setSelectedBook(book);
   };
 
-  const handleMakeOffer = async () => {
+  const fetchBook = async (book: Book) => {
+    const bookResponse = await fetch(
+      `${API_BASE_URL}/books/bids?userId=${JSON.parse(Cookies.get("user")!).id}&bookId=${book.id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: JSON.parse(Cookies.get("user")!).token,
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
+    setSelectedBook(await bookResponse.json());
+  };
+
+  const handleMakeBid = async () => {
     if (!selectedBook) return;
-    const price = parseFloat(offerPrice);
+    const price = parseFloat(bidPrice);
     if (isNaN(price) || price <= 0) {
       alert("O preço da oferta deve ser maior que zero.");
       return;
     }
 
-    const newOffer: Offer = {
-      id: Date.now().toString(), 
-      createdAt: new Date().toISOString(), 
-      updatedAt: new Date().toISOString(), 
-      price: offerPrice,
-      book: {
-        id: selectedBook.id,
-        createdAt: selectedBook.createdAt,
-        updatedAt: selectedBook.updatedAt,
-        title: selectedBook.title,
-        author: selectedBook.author,
-        genre: selectedBook.genre,
-        imageURL: selectedBook.imageURL,
-        status: selectedBook.status,
-        userId: selectedBook.userId,
-      },
-      status: 0, // Status inicial como pendente
+    const newBid = {
+      price: bidPrice,
+      bookId: selectedBook.id,
     };
 
     try {
@@ -108,21 +109,21 @@ export default function Component() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: JSON.parse(Cookies.get("user")!).token,
+          "Access-Control-Allow-Origin": "*",
         },
-        body: JSON.stringify(newOffer),
+        body: JSON.stringify(newBid),
       });
 
       if (response.ok) {
-        const updatedOffers = [...offers, newOffer];
-        setOffers(updatedOffers);
         toast.success("Oferta enviada com sucesso!");
-        setOfferPrice("");
+        setBidPrice("");
         setSelectedBook(null);
       } else {
-        console.error("Error posting offer:", response.statusText);
+        console.error("Error posting bid:", response.statusText);
       }
     } catch (error) {
-      console.error("Error posting offer:", error);
+      console.error("Error posting bid:", error);
     }
   };
 
@@ -143,60 +144,72 @@ export default function Component() {
               </div>
               <div className="grid gap-6">
                 <div>
-                  <h2 className="text-3xl font-bold tracking-tight text-secondary-foreground">{selectedBook.title}</h2>
-                  <p className="mt-2 text-muted-foreground">by {selectedBook.author}</p>
+                  <h2 className="text-3xl font-bold tracking-tight text-secondary-foreground">
+                    {selectedBook.title}
+                  </h2>
+                  <p className="mt-2 text-muted-foreground">
+                    by {selectedBook.author}
+                  </p>
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">Description</h3>
-                  <p className="text-muted-foreground">Descrição não disponível.</p>
+                  <p className="text-muted-foreground">
+                    Descrição não disponível.
+                  </p>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold">My Offers</h3>
+                  <h3 className="text-lg font-semibold">My Bids</h3>
                   <div className="grid gap-4">
-                    {offers
-                      .filter((offer) => {
-                        return offer.book && offer.book.id === selectedBook.id;
-                      })
-                      .map((offer) => (
-                        <div
-                          key={offer.id}
-                          className={`rounded-md p-4 ${offer.status === 0
-                            ? "bg-muted"
-                            : offer.status === 1
-                              ? "bg-green-100"
-                              : "bg-red-100"
+                    {selectedBook.bids
+                      ? selectedBook.bids.map((bid) => (
+                          <div
+                            key={bid.id}
+                            className={`rounded-md p-4 ${
+                              bid.status === 0
+                                ? "bg-muted"
+                                : bid.status === 1
+                                ? "bg-green-100"
+                                : "bg-red-100"
                             }`}
-                        >
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <p className="font-medium">Usuário {offer.id}</p>
-                              <p className="text-muted-foreground">Offered ${offer.price}</p>
-                            </div>
-                            <div
-                              className={`px-2 py-1 rounded-md text-xs font-medium ${offer.status === 0
-                                ? "bg-muted-foreground text-muted"
-                                : offer.status === 1
-                                  ? "bg-green-500 text-green-900"
-                                  : "bg-red-500 text-red-900"
+                          >
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="font-medium">User {JSON.parse(Cookies.get("user")!).name}</p>
+                                <p className="text-muted-foreground">
+                                  Bided ${bid.price}
+                                </p>
+                              </div>
+                              <div
+                                className={`px-2 py-1 rounded-md text-xs font-medium ${
+                                  bid.status === 0
+                                    ? "bg-muted-foreground text-muted"
+                                    : bid.status === 1
+                                    ? "bg-green-500 text-green-900"
+                                    : "bg-red-500 text-red-900"
                                 }`}
-                            >
-                              {offer.status === 0 ? "pending" : offer.status === 1 ? "accepted" : "declined"}
+                              >
+                                {bid.status === 0
+                                  ? "pending"
+                                  : bid.status === 1
+                                  ? "accepted"
+                                  : "declined"}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        ))
+                      : ""}
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold">Make an Offer</h3>
+                  <h3 className="text-lg font-semibold">Make an Bid</h3>
                   <div className="grid gap-4">
                     <Input
                       type="number"
-                      placeholder="Enter your offer price"
-                      value={offerPrice}
-                      onChange={(e) => setOfferPrice(e.target.value)}
+                      placeholder="Enter your bid price"
+                      value={bidPrice}
+                      onChange={(e) => setBidPrice(e.target.value)}
                     />
-                    <Button onClick={handleMakeOffer}>Submit Offer</Button>
+                    <Button onClick={handleMakeBid}>Submit Bid</Button>
                   </div>
                 </div>
               </div>
@@ -208,12 +221,16 @@ export default function Component() {
         ) : (
           <div className="mx-auto max-w-4xl space-y-8">
             <div>
-              <h2 className="text-3xl font-bold tracking-tight text-secondary-foreground">Book Catalogue</h2>
-              <p className="mt-2 text-muted-foreground">Browse and search through our collection of books.</p>
+              <h2 className="text-3xl font-bold tracking-tight text-secondary-foreground">
+                Book Catalogue
+              </h2>
+              <p className="mt-2 text-muted-foreground">
+                Browse and search through our collection of books.
+              </p>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {books.map((book) => (
-                <Card key={book.id} onClick={() => handleBookDetails(book)}>
+                <Card key={book.id} onClick={() => fetchBook(book)}>
                   <div className="relative h-48">
                     <Image
                       src={book.imageURL || "/no-image.jpg"}

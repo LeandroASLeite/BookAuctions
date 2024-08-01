@@ -81,10 +81,11 @@ export default function BookRegistration() {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": JSON.parse(Cookies.get('user')!).token,
+                    "Access-Control-Allow-Origin": "*",
                 },
                 body: JSON.stringify(book),
             });
-
+            console.log(response)
             if (response.ok) {
                 toast.success('Book registered successfully!');
                 setTitle('');
